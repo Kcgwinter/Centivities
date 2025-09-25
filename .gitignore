@@ -485,3 +485,5 @@ $RECYCLE.BIN/
 API/appsettings.json
 API/centivities.db
 API/centivities.db
+API/centivities.db-shm
+API/centivities.db-wal
