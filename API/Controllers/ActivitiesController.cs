@@ -1,6 +1,7 @@
 using System;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -12,5 +13,15 @@ public class ActivitiesController(AppDbContext context) : BaseApiController
     public async Task<ActionResult<List<Activity>>> GetActivities()
     {
         return await context.Activites.ToListAsync();
+    }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Activity>> GetActivityDetail(string id)
+    {
+        var activity = await context.Activites.FindAsync(id);
+
+        if (activity == null) return NotFound();
+        return activity;
+
     }
 }
