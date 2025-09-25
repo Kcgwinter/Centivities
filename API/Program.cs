@@ -14,14 +14,16 @@ var app = builder.Build();
 
 app.MapControllers();
 
-
+//Add Scope to add migration and seeding to Database
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
 
 try
 {
     var context = services.GetRequiredService<AppDbContext>();
+    //create and wait for the migration to happen
     await context.Database.MigrateAsync();
+    //use context to seed the database
     await DBInitalizer.SeedData(context);
 }
 catch (Exception ex)
