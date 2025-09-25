@@ -1,3 +1,4 @@
+import { List, ListItem, ListItemText, Typography } from "@mui/material";
 import { Fragment, useEffect, useState } from "react"
 
 function App() {
@@ -10,12 +11,12 @@ function App() {
 
   return (
     <Fragment>
-      <h3 className="app" style={{ color: 'red' }}>Welcome to the Centivities</h3>
-      <ul>
+      <Typography variant='h3'>Welcome to the Centivities</Typography>
+      <List>
         {activities.map((activity) => (
-          <li key={activity.id}>{activity.title}</li>
+          <ListItem key={activity.id}> <ListItemText>{activity.title}</ListItemText></ListItem>
         ))}
-      </ul>
+      </List>
     </Fragment>
   )
 }
