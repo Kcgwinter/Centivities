@@ -1,29 +1,27 @@
-import { CssBaseline, List, ListItem, ListItemText, Typography } from "@mui/material";
-import axios from "axios";
-import { useEffect, useState } from "react"
+import { Container, CssBaseline } from "@mui/material";
 import NavBar from "./NavBar";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import ActivityDashboard from "../../features/activities/Dashboard/ActivityDashboard";
 
 function App() {
 
-  const [activities, setActivities] = useState<Activity[]>([]);
+    const [activities, setActivities] = useState<Activity[]>([]);
 
-  useEffect(() => {
-    axios.get<Activity[]>('https://localhost:5001/api/activities')
-      .then(response => setActivities(response.data))
-  }, [])
+    useEffect(() => {
+        axios.get<Activity[]>('https://localhost:5001/api/activities')
+            .then(response => setActivities(response.data))
+    }, [])
 
-  return (
-    <>
-      <CssBaseline />
-      <NavBar />
-      <Typography variant='h3'>Welcome to the Centivities</Typography>
-      <List>
-        {activities.map((activity) => (
-          <ListItem key={activity.id}> <ListItemText>{activity.title}</ListItemText></ListItem>
-        ))}
-      </List>
-    </>
-  )
+    return (
+        <>
+            <CssBaseline />
+            <NavBar />
+            <Container maxWidth="xl" sx={{ mt: 3 }}>
+                <ActivityDashboard activities={activities} />
+            </Container>
+        </>
+    )
 }
 
 
