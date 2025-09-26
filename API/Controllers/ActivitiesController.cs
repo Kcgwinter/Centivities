@@ -1,24 +1,21 @@
-using System;
 using Application.Activities.Queries;
 using Domain;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace API.Controllers;
 
-public class ActivitiesController(IMediator mediator) : BaseApiController
+public class ActivitiesController : BaseApiController
 {
     [HttpGet]
     public async Task<ActionResult<List<Activity>>> GetActivities()
     {
-        return await mediator.Send(new GetActivityList.Query());
+        return await Mediator.Send(new GetActivityList.Query());
     }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<Activity>> GetActivityDetail(string id)
     {
-        return await mediator.Send(new GetActivity.Query());
+        return await Mediator.Send(new GetActivityDetails.Query{ Id = id});
 
     }
 }
