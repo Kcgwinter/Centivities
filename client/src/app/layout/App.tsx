@@ -1,6 +1,7 @@
-import { List, ListItem, ListItemText, Typography } from "@mui/material";
+import { CssBaseline, List, ListItem, ListItemText, Typography } from "@mui/material";
 import axios from "axios";
-import { Fragment, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
+import NavBar from "./NavBar";
 
 function App() {
 
@@ -8,18 +9,20 @@ function App() {
 
   useEffect(() => {
     axios.get<Activity[]>('https://localhost:5001/api/activities')
-    .then(response => setActivities(response.data))
+      .then(response => setActivities(response.data))
   }, [])
 
   return (
-    <Fragment>
+    <>
+      <CssBaseline />
+      <NavBar />
       <Typography variant='h3'>Welcome to the Centivities</Typography>
       <List>
         {activities.map((activity) => (
           <ListItem key={activity.id}> <ListItemText>{activity.title}</ListItemText></ListItem>
         ))}
       </List>
-    </Fragment>
+    </>
   )
 }
 
