@@ -1,4 +1,6 @@
-import { Grid, List, ListItem, ListItemText } from "@mui/material";
+import { Grid, List} from "@mui/material";
+import ActivityList from "./ActivityList";
+import ActivityDetails from "../details/ActivityDetails";
 
 type Props = {
     activities: Activity[]
@@ -7,13 +9,14 @@ type Props = {
 
 export default function ActivityDashboard({activities}: Props) {
     return (
-        <Grid>
-            <Grid size={9}>
+        <Grid container spacing={2}>
+            <Grid size={8}>
                 <List>
-                    {activities.map((activity) => (
-                        <ListItem key={activity.id}> <ListItemText>{activity.title}</ListItemText></ListItem>
-                    ))}
+                    <ActivityList activities={activities}/>
                 </List>
+            </Grid>
+            <Grid size={4}>
+                {activities[0] && <ActivityDetails activity={activities[0]} />}
             </Grid>
         </Grid>
     )
