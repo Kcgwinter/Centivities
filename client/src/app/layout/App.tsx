@@ -23,8 +23,6 @@ function App() {
         setSelectedActivity(undefined);
     }
 
-
-
     const handleOpenForm = (id?: string) => {
         if (id) handleSelectedActivity(id);
         else handleCancelSelectedActivity();
