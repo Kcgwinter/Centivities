@@ -50,7 +50,7 @@ export default function ActivityForm({ activity, closeForm, }: Props) {
                         type="submit"
                         color="success"
                         variant="contained"
-                        disabled={updateActivitiy.isPending}>
+                        disabled={updateActivitiy.isPending || createActivity.isPending}>
                         Submit
                     </Button>
                 </Box>
