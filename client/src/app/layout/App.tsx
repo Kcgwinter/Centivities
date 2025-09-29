@@ -8,7 +8,7 @@ function App() {
 
     const [selectActivity, setSelectedActivity] = useState<Activity | undefined>(undefined)
     const [editMode, setEditMode] = useState(false);
-    const {activities, isPending} = useActivities();
+    const { activities, isPending } = useActivities();
 
     const handleSelectedActivity = (id: string) => {
         setSelectedActivity(activities!.find(x => x.id === id));
@@ -26,20 +26,9 @@ function App() {
         setEditMode(false);
     }
 
-    const handleSubmitForm = (activity: Activity) => {
-        // if (activity.id) {
-        //     setActivities(activities!.map(x => x.id === activity.id ? activity : x))
-        // }
-        // else {
-        //     const newActivity = { ...activity, id: activities!.length.toString() }
-        //     setActivities([...activities!, { ...newActivity }])
-        // }
-        console.log(activity)
-        setEditMode(false);
-    }
 
     const handleDeleteActivity = (id: string) => {
-        
+
         console.log(id);
     }
 
@@ -51,16 +40,15 @@ function App() {
                 {!activities || isPending ? (
                     <Typography>Loading ...</Typography>
                 ) : (
-                <ActivityDashboard activities={activities}
-                    selectActivity={handleSelectedActivity}
-                    cancelSelectActivity={handleCancelSelectedActivity}
-                    selectedActivity={selectActivity}
-                    editMode={editMode}
-                    openForm={handleOpenForm}
-                    closeForm={handleCloseForm}
-                    submitForm={handleSubmitForm}
-                    deleteActivity={handleDeleteActivity}
-                />
+                    <ActivityDashboard activities={activities}
+                        selectActivity={handleSelectedActivity}
+                        cancelSelectActivity={handleCancelSelectedActivity}
+                        selectedActivity={selectActivity}
+                        editMode={editMode}
+                        openForm={handleOpenForm}
+                        closeForm={handleCloseForm}
+                        deleteActivity={handleDeleteActivity}
+                    />
                 )}
             </Container>
         </Box>
