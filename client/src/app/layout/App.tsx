@@ -1,54 +1,17 @@
-import { Box, Container, CssBaseline, Typography } from "@mui/material";
+import { Box, Container, CssBaseline } from "@mui/material";
 import NavBar from "./NavBar";
-import { useState } from "react";
-import ActivityDashboard from "../../features/activities/dashboard/ActivityDashboard";
-import { useActivities } from "../../lib/hooks/useActivities";
+import { Outlet } from "react-router";
 
 function App() {
-
-    const [selectActivity, setSelectedActivity] = useState<Activity | undefined>(undefined)
-    const [editMode, setEditMode] = useState(false);
-    const { activities, isPending } = useActivities();
-
-    const handleSelectedActivity = (id: string) => {
-        setSelectedActivity(activities!.find(x => x.id === id));
-    }
-    const handleCancelSelectedActivity = () => {
-        setSelectedActivity(undefined);
-    }
-
-    const handleOpenForm = (id?: string) => {
-        if (id) handleSelectedActivity(id);
-        else handleCancelSelectedActivity();
-        setEditMode(true);
-    }
-    const handleCloseForm = () => {
-        setEditMode(false);
-    }
-
-
     return (
         <Box sx={{ bgcolor: "#eeeeed", minHeight: '200vh' }}>
             <CssBaseline />
-            <NavBar openForm={handleOpenForm} />
+            <NavBar />
             <Container maxWidth="xl" sx={{ mt: 3 }}>
-                {!activities || isPending ? (
-                    <Typography>Loading ...</Typography>
-                ) : (
-                    <ActivityDashboard activities={activities}
-                        selectActivity={handleSelectedActivity}
-                        cancelSelectActivity={handleCancelSelectedActivity}
-                        selectedActivity={selectActivity}
-                        editMode={editMode}
-                        openForm={handleOpenForm}
-                        closeForm={handleCloseForm}
-                    />
-                )}
+                    <Outlet></Outlet>
             </Container>
         </Box>
     )
 }
-
-
 
 export default App
