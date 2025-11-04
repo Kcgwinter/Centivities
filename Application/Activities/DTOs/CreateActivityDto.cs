@@ -16,7 +16,6 @@ public class CreateActivityDto
     public string City { get; set; } = "";
     [Required]
     public string Venue { get; set; } = "";
-    [Required]
     public double Latitude { get; set; }
     public double Longitude { get; set; }
 }
