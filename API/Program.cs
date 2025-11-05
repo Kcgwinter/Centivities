@@ -14,7 +14,10 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
-builder.Services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<GetActivityList.Handler>());
+builder.Services.AddMediatR(x => {
+    x.RegisterServicesFromAssemblyContaining<GetActivityList.Handler>();
+    x.AddOpenBehavior(typeof(ValidationBehaviour<,>));
+});
 builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 builder.Services.AddValidatorsFromAssemblyContaining<CreateActivitiyValidator>();
 
