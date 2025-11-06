@@ -4,19 +4,19 @@ using MediatR;
 
 namespace Application.Core;
 
-public class ValidationBehaviour<TRequest, TResponse>(IValidator<TRequest>? validator = null) : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
+public class ValidationBehaviour<TRequest, TResponse>(IValidator<TRequest>? validator = null) 
+: IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
 {
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
-        if (validator == null) return await next();
+        if (validator == null) return await next(cancellationToken);
 
-        var validationResult = validator.ValidateAsync(request, cancellationToken);
+        var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
-        if (!validationResult.IsCompletedSuccessfully)
+        if (!validationResult.IsValid)
         {
-            throw new ValidationException(validationResult.Result.Errors);
+            throw new ValidationException(validationResult.Errors);
         }
-
         return await next();
     }
 }
